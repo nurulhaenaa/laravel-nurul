@@ -11,10 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('password_reset_tokens', function (Blueprint $table) {
-            $table->string('email')->primary();
-            $table->string('token');
-            $table->timestamp('created_at')->nullable();
+        Schema::create('pengaduans', function (Blueprint $table) {
+            $table->id();
+            $table->date('tgl_pengaduan');
+            $table->char('nik', 16);
+            $table->foreign('nik')->references('nik')->on('masyarakats');
+            $table->text('isi_laporan');
+            $table->string('foto', 255);
+            $table->enum('0',['proses','selesai']);
+            $table->timestamps();
         });
     }
 
@@ -23,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('password_reset_tokens');
+        Schema::dropIfExists('pengaduans');
     }
 };
